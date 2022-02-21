@@ -12,13 +12,16 @@ import org.mockito.Mockito;
 public class ObtenerRolesStaticTest {
     String user = "Erick";
     String password = "123";
-
-    @Test
-    public void verifyRoleA(){
+    @BeforeAll
+    public static void before(){
         MockedStatic<VerificarUsuarioStatic> mockedVerificarUsuarioStatic = Mockito.mockStatic(VerificarUsuarioStatic.class);
         MockedStatic<PermisosUsuarioStatic> mockedPermisosUsuarioStatic = Mockito.mockStatic(PermisosUsuarioStatic.class);
+
         mockedVerificarUsuarioStatic.when(() -> VerificarUsuarioStatic.verifyUser("Erick","123")).thenReturn(false);
         mockedPermisosUsuarioStatic.when(() -> PermisosUsuarioStatic.getPermisosUsuario("Erick","123")).thenReturn("CRUD");
+    }
+    @Test
+    public void verifyRoleA(){
         ObtenerRolesStatic obtenerRolesStatic = new ObtenerRolesStatic();
         String actualResult = obtenerRolesStatic.getRoles(user, password);
         String expectedResult = "Incorrect USER and PWD";
@@ -26,10 +29,10 @@ public class ObtenerRolesStaticTest {
     }
     @Test
     public void verifyRoleB(){
-        MockedStatic<VerificarUsuarioStatic> mockedVerificarUsuarioStatic2 = Mockito.mockStatic(VerificarUsuarioStatic.class);
-        MockedStatic<PermisosUsuarioStatic> mockedPermisosUsuarioStatic2 = Mockito.mockStatic(PermisosUsuarioStatic.class);
-        mockedVerificarUsuarioStatic2.when(() -> VerificarUsuarioStatic.verifyUser("Erick","123")).thenReturn(true);
-        mockedPermisosUsuarioStatic2.when(() -> PermisosUsuarioStatic.getPermisosUsuario("Erick","123")).thenReturn("CRUD");
+        MockedStatic<VerificarUsuarioStatic> mockedVerificarUsuarioStatic = Mockito.mockStatic(VerificarUsuarioStatic.class);
+        MockedStatic<PermisosUsuarioStatic> mockedPermisosUsuarioStatic = Mockito.mockStatic(PermisosUsuarioStatic.class);
+        mockedVerificarUsuarioStatic.when(() -> VerificarUsuarioStatic.verifyUser("Erick","123")).thenReturn(true);
+        mockedPermisosUsuarioStatic.when(() -> PermisosUsuarioStatic.getPermisosUsuario("Erick","123")).thenReturn("CRUD");
 
         ObtenerRolesStatic obtenerRolesStatic = new ObtenerRolesStatic();
         String actualResult = obtenerRolesStatic.getRoles(user, password);

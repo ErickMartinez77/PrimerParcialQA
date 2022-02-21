@@ -31,10 +31,38 @@ public class ObtenerRolesTest {
 
         ObtenerRoles obtenerRoles = new ObtenerRoles(verificarUsuarioMock,permisosUsuarioMock);
         String actualResult = obtenerRoles.getRoles(user, password);
-        String expectedResult = "PERMISSION ROLE : CRUD - Mon Feb 21 08:34:19 BOT 2022";
-        if (expectedResult.contains("Mon Feb 21")){
-            Assertions.assertEquals(expectedResult,actualResult,"ERROR datos incorrectos");
-        }
+        String expectedResult = "PERMISSION ROLE : CRUD";
+        Assertions.assertTrue(actualResult.contains(expectedResult), "ERROR datos incorrectos");
+    }
+    @Test
+    public void verifyRoleC(){
+        Mockito.when(verificarUsuarioMock.verifyUser(user, password)).thenReturn(true);
+        Mockito.when(permisosUsuarioMock.getPermisosUsuario(user, password)).thenReturn("CD");
+
+        ObtenerRoles obtenerRoles = new ObtenerRoles(verificarUsuarioMock,permisosUsuarioMock);
+        String actualResult = obtenerRoles.getRoles(user, password);
+        String expectedResult = "PERMISSION ROLE : CD";
+        Assertions.assertTrue(actualResult.contains(expectedResult), "ERROR datos incorrectos");
+    }
+    @Test
+    public void verifyRoleD(){
+        Mockito.when(verificarUsuarioMock.verifyUser(user, password)).thenReturn(true);
+        Mockito.when(permisosUsuarioMock.getPermisosUsuario(user, password)).thenReturn("R");
+
+        ObtenerRoles obtenerRoles = new ObtenerRoles(verificarUsuarioMock,permisosUsuarioMock);
+        String actualResult = obtenerRoles.getRoles(user, password);
+        String expectedResult = "PERMISSION ROLE : R";
+        Assertions.assertTrue(actualResult.contains(expectedResult), "ERROR datos incorrectos");
+    }
+    @Test
+    public void verifyRoleE(){
+        Mockito.when(verificarUsuarioMock.verifyUser(user, password)).thenReturn(true);
+        Mockito.when(permisosUsuarioMock.getPermisosUsuario(user, password)).thenReturn("CUD");
+
+        ObtenerRoles obtenerRoles = new ObtenerRoles(verificarUsuarioMock,permisosUsuarioMock);
+        String actualResult = obtenerRoles.getRoles(user, password);
+        String expectedResult = "PERMISSION ROLE : CUD";
+        Assertions.assertTrue(actualResult.contains(expectedResult), "ERROR datos incorrectos");
     }
 
 
